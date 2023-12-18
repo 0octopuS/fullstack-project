@@ -1,4 +1,6 @@
 import { useState } from 'react'
+
+// 1.10 Button and StatisticLine Components
 const Button = (props) => {
   return (
     <button onClick={props.onClick}>
@@ -8,17 +10,20 @@ const Button = (props) => {
 }
 const StatisticLine = ({ text, value }) => {
   return (
+    // 1.11 Table styles
     <tr><td>{text}</td><td>{value}</td></tr>
   )
 }
+// 1.8 Statistics Components
 const Statistics = ({ good, neutral, bad }) => {
   const all = good + neutral + bad
-  if (all === 0) {
+  if (all === 0) { // 1.9 no statistics case 
     return <p>No feedback given</p>
   }
   return (
     <table>
       <tbody>
+        {/* 1.7:six statistics */}
         <StatisticLine text="good" value={good} />
         <StatisticLine text="neutral" value={neutral} />
         <StatisticLine text="bad" value={bad} />
@@ -37,6 +42,7 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
+      {/* 1.6: three buttons */}
       <Button onClick={() => { setGood(good + 1) }} text="good" />
       <Button onClick={() => { setNeutral(neutral + 1) }} text="neutral" />
       <Button onClick={() => { setBad(bad + 1) }} text="bad" />
