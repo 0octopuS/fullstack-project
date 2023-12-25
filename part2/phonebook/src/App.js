@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 
 const App =
   () => {
@@ -14,21 +15,23 @@ const App =
     const [newName, setNewName] = useState('')
     const [newPhone, setNewPhone] = useState('')
     const [newFilterName, setNewFilterName] = useState('')
-
+    const [notification, setNotification] = useState(null);
+    const [notificationType, setNotificationType] = useState(null);
 
     // 2.10 refactor to components
     return (
       <div>
         <h2>Phonebook</h2>
+        <Notification message={notification} type={notificationType} />
         <Filter newFilterName={newFilterName} setNewFilterName={setNewFilterName} />
 
         <h3>Add a new</h3>
         <PersonForm
-          newName={newName} newPhone={newPhone} persons={persons} setNewName={setNewName} setNewPhone={setNewPhone} setPersons={setPersons}
+          newName={newName} newPhone={newPhone} persons={persons} notification={notification} notificationType={notificationType} setNewName={setNewName} setNewPhone={setNewPhone} setPersons={setPersons} setNotification={setNotification} setNotificationType={setNotificationType}
         />
 
         <h3>Numbers</h3>
-        <Persons newFilterName={newFilterName} persons={persons} />
+        <Persons newFilterName={newFilterName} persons={persons} setPersons={setPersons} notification={notification} notificationType={notificationType} setNotification={setNotification} setNotificationType={setNotificationType} />
       </div>
     )
 

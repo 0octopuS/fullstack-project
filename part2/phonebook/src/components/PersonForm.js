@@ -1,23 +1,73 @@
+import personService from '../services/person'
 
-const PersonForm = ({ newName, newPhone, persons, setNewName, setNewPhone, setPersons }) => {
+
+const PersonForm = ({ newName, newPhone, persons, notification, notificationType, setNewName, setNewPhone, setPersons, setNotification, setNotificationType }) => {
 
     // 2.6 add name in the phonebook
     const addPerson =
         (event) => {
             event.preventDefault()
             // 2.7 give alert when the name collapse
-            if (persons.find((person) => { return person.name === newName })) {
-                alert(`${newName} is already added to phonebook`)
-                return
-            }
-            const personObject = {
-                name: newName,
-                number: newPhone,
-            }
+            // 2.15 if the name exist, then ask if user wants to update
+            const existingPerson = persons.find((person) => person.name === newName);
+            if (existingPerson) {
+                const confirmed = window.confirm(`${newName} is already added to the phonebook. Do you want to update the phone number?`);
 
-            setPersons(persons.concat(personObject))
-            setNewName('')
-            setNewPhone('')
+                if (!confirmed) {
+                    return;
+                }
+
+                personService
+                    .update(existingPerson.id, { ...existingPerson, number: newPhone })
+                    .then((updatedPerson) => {
+                        setPersons(persons.map((person) => (person.id !== existingPerson.id ? person : updatedPerson)));
+                        setNewName('');
+                        setNewPhone('');
+
+                        setNotification(`Updated ${newName} successfully.`);
+                        setNotificationType('success');
+                        setTimeout(() => {
+                            setNotification(null);
+                            setNotificationType(null);
+                        }, 3000)
+                    })
+                    .catch((error) => {
+                        console.error('Error updating person:', error);
+                        setNotification(`${newName} has already been removed from server`);
+                        setNotificationType('error');
+                        setTimeout(() => {
+                            setNotification(null);
+                            setNotificationType(null);
+                        }, 3000);
+                    })
+            } else {
+
+                const personObject = {
+                    name: newName,
+                    number: newPhone,
+                }
+
+                // 2.12 add person to database
+                personService.create(personObject).then(response => {
+                    setPersons(persons.concat(response))
+                    setNewName('')
+                    setNewPhone('')
+
+                    setNotification(`Added ${newName} successfully.`);
+                    setNotificationType('success');
+                    setTimeout(() => {
+                        setNotification(null);
+                        setNotificationType(null);
+                    }, 3000)
+                }).catch((error) => {
+                    setNotification(`Added ${newName} failed.`);
+                    setNotificationType('error');
+                    setTimeout(() => {
+                        setNotification(null);
+                        setNotificationType(null);
+                    }, 3000)
+                })
+            }
         }
 
     const handleNameChange =
