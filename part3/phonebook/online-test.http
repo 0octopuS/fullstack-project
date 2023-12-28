@@ -1,3 +1,11 @@
 
-DELETE https://zhongxuan-phonebook.fly.dev/api/persons/5 HTTP/1.1
+# DELETE https://zhongxuan-phonebook.fly.dev/api/persons/5 HTTP/1.1
+# content-type: application/json
+# ##
+
+POST https://localhost:3001/api/persons HTTP/1.1
 content-type: application/json
+{
+    name:"dd",
+    number:"123",
+}
