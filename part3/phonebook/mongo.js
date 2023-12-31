@@ -11,10 +11,6 @@ const password = process.argv[2]
 const url = `mongodb+srv://oysterpus:${password}@cluster0.pszb3se.mongodb.net/?retryWrites=true&w=majority`
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
-const personSchema = new mongoose.Schema({
-    name: String,
-    number: String,
-})
 const Person = mongoose.model('phonebook', personSchema)
 if (process.argv.length == 3) {
     console.log('Phonebook:')

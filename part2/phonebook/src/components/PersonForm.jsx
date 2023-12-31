@@ -32,7 +32,7 @@ const PersonForm = ({ newName, newPhone, persons, notification, notificationType
                         }, 3000)
                     })
                     .catch((error) => {
-                        console.error('Error updating person:', error);
+                        console.error(`Error updating person:${error.response.data.error}`);
                         setNotification(`${newName} has already been removed from server`);
                         setNotificationType('error');
                         setTimeout(() => {
@@ -60,7 +60,8 @@ const PersonForm = ({ newName, newPhone, persons, notification, notificationType
                         setNotificationType(null);
                     }, 3000)
                 }).catch((error) => {
-                    setNotification(`Added ${newName} failed.`);
+                    // 3.19 it displays some form of error message when a validation error occurs.
+                    setNotification(`Added ${newName} failed: ${error.response.data.error}`);
                     setNotificationType('error');
                     setTimeout(() => {
                         setNotification(null);
