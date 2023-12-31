@@ -51,7 +51,7 @@ function formatCurrentTime() {
     return formattedTime
 }
 // 3.2 show the time that the request was received
-app.get("/info", (request, response) => {
+app.get("/info", (request, response, next) => {
     Person.countDocuments({})
         .then((personCount) => {
             const time = new Date()

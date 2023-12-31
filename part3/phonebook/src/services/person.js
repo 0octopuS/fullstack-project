@@ -1,6 +1,6 @@
 // import axios from 'axios'
 const axios = require('axios')
-const baseUrl = 'http://localhost:3001/api/persons'
+const baseUrl = 'http://localhost:3000/api/persons'
 // 3.9 Work with backend
 
 
