@@ -1,54 +1,35 @@
-const handleLogin = async (event) => {
-    event.preventDefault()
+import PropTypes from 'prop-types'
 
-    try {
-        const user = await loginService.login({
-            username, password,
-        })
-        blogService.setToken(user.token)
-        setUser(user)
-        setUsername('')
-        setPassword('')
-        setNotification('Successful login')
-        setNotificationType('note')
-        setTimeout(() => {
-            setNotification(null)
-            setNotificationType(null)
-        }, 3000)
-    } catch (exception) {
-        setNotification('Wrong credentials')
-        setNotificationType('error')
-        setTimeout(() => {
-            setNotification(null)
-            setNotificationType(null)
-        }, 3000)
-    }
-}
 
-const LoginForm = (props) => (
+// 5.1 Implement login functionality to the frontend.
+const LoginForm = ({ username, password, handleLogin, setUsername, setPassword }) => (
+  <form onSubmit={handleLogin}>
     <div>
-        <form onSubmit={handleLogin}>
-            <div>
-                username
-                <input
-                    type="text"
-                    value={props.username}
-                    name="Username"
-                    onChange={({ target }) => props.setUsername(target.value)}
-                />
-            </div>
-            <div>
-                password
-                <input
-                    type="password"
-                    value={props.password}
-                    name="Password"
-                    onChange={({ target }) => props.setPassword(target.value)}
-                />
-            </div>
-            <button type="submit">login</button>
-        </form>
+            username
+      <input
+        type="text"
+        value={username}
+        name="Username"
+        onChange={({ target }) => setUsername(target.value)}
+      />
     </div>
+    <div>
+            password
+      <input
+        type="password"
+        value={password}
+        name="Password"
+        onChange={({ target }) => setPassword(target.value)}
+      />
+    </div>
+    <button type="submit">login</button>
+  </form>
 )
 
-export default LoginForm 
+LoginForm.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
+}
+
+export default LoginForm
