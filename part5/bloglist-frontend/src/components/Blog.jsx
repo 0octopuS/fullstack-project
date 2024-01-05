@@ -29,6 +29,7 @@ const Blog = ({ user, blog, updateBlogs }) => {
       updateBlogs()
     } catch (error) {
       console.log(error)
+      throw error
     }
   }
 
@@ -51,19 +52,18 @@ const Blog = ({ user, blog, updateBlogs }) => {
 
       <div>
         <div style={hideWhenVisible}>
-          <div>
+          <div className='defaultBlog'>
             {blog.title}{blog.author}
           </div>
 
           <button onClick={() => setDetailVisible(true)}>view</button>
         </div>
-        <div style={showWhenVisible}>
+        <div style={showWhenVisible} className='detailBlog'>
           <p> title : {blog.title} </p>
-          <p> url   : {blog.url}</p>
-          <p> likes : {blog.likes} <button onClick={() => addLike()}>like</button></p>
-          <p> author: {blog.author}</p>
+          <p> url : {blog.url} </p>
+          <p> likes : {blog.likes} <button className="like-button" onClick={() => addLike()}>like</button></p>
+          <p> author : {blog.author}</p>
           <p> <button onClick={() => setDetailVisible(false)}>hide</button></p>
-          {console.log(user, blog.user)}
           {user && blog.user && user.id === blog.user.id && (
             <p> <button onClick={handleDelete}>Delete</button> </p>
           )}
@@ -97,9 +97,7 @@ const BlogForm = ({ user, handleNewBlog }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-
     blogFormRef.current.toggleVisibility()
-    // Pass both event and form data to the parent handleNewBlog function
     await handleNewBlog({ title, author, url })
     updateBlogs()
     // Clear form fields or perform any other necessary actions
@@ -114,33 +112,36 @@ const BlogForm = ({ user, handleNewBlog }) => {
       <h2> create new </h2>
       <Togglable buttonLabel="New Blog" ref={blogFormRef}>
         <form onSubmit={handleSubmit}>
-          <div>
+          <label>
             title
             <input
               type="title"
+              id="title"
               value={title}
               name="Title"
               onChange={({ target }) => setTitle(target.value)}
             />
-          </div>
-          <div>
+          </label>
+          <label>
             author
             <input
               type="author"
+              id="author"
               value={author}
               name="Author"
               onChange={({ target }) => setAuthor(target.value)}
             />
-          </div>
-          <div>
+          </label>
+          <label>
             url
             <input
               type="url"
+              id="url"
               value={url}
               name="Url"
               onChange={({ target }) => setUrl(target.value)}
             />
-          </div>
+          </label>
           <button type="submit">create</button>
         </form>
       </Togglable>
@@ -155,4 +156,4 @@ const BlogForm = ({ user, handleNewBlog }) => {
     </div >)
 } // 5.10 Modify the application to list the blog posts by the number of likes.
 
-export default BlogForm
+export { BlogForm, Blog }

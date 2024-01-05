@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import BlogFrom from './components/Blog'
+import { BlogForm } from './components/Blog'
 import LoginForm from './components/Login'
 import LogoutForm from './components/Logout'
 import Notification from './components/Notification'
@@ -68,7 +68,7 @@ const App = () => {
     console.log(title, url)
     try {
       const result = await blogService.create(
-        { 'title': title, 'author': author, url: 'url' }
+        { 'title': title, 'author': author, 'url': url }
       )
       setNotification(`A new blog "${title}" is created by ${author}`)
       setNotificationType('note')
@@ -95,7 +95,7 @@ const App = () => {
       {user === null && <LoginForm username={username} password={password} handleLogin={handleLogin} setUsername={setUsername} setPassword={setPassword} />}
       {user !== null && <LogoutForm user={user} handleLogout={handleLogout} />}
       {user !== null &&
-        <BlogFrom user={user} handleNewBlog={handleNewBlog} />}
+        <BlogForm user={user} handleNewBlog={handleNewBlog} />}
 
     </div>
   )
