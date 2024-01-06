@@ -3,26 +3,26 @@ import PropTypes from 'prop-types'
 
 // 5.1 Implement login functionality to the frontend.
 const LoginForm = ({ username, password, handleLogin, setUsername, setPassword }) => (
-  <form onSubmit={handleLogin}>
+  <form id='login-form' onSubmit={handleLogin}>
     <div>
-            username
+      username
       <input
         type="text"
+        id='username'
         value={username}
-        name="Username"
         onChange={({ target }) => setUsername(target.value)}
       />
     </div>
     <div>
-            password
+      password
       <input
         type="password"
+        id='password'
         value={password}
-        name="Password"
         onChange={({ target }) => setPassword(target.value)}
       />
     </div>
-    <button type="submit">login</button>
+    <button id='login-button' type="submit">login</button>
   </form>
 )
 

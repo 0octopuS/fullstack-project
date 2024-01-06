@@ -3,7 +3,7 @@ import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { Blog, BlogForm } from './Blog'
+import { Blog, BlogForm } from '../components/Blog'
 import blogService from '../services/blogs'
 import loginService from '../services/login'
 import userEvent from '@testing-library/user-event'

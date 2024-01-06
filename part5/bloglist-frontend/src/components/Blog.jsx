@@ -51,21 +51,21 @@ const Blog = ({ user, blog, updateBlogs }) => {
     <div style={blogStyle}>
 
       <div>
-        <div style={hideWhenVisible}>
-          <div className='defaultBlog'>
+        <div style={hideWhenVisible} className='defaultBlog'>
+          <div>
             {blog.title}{blog.author}
           </div>
 
-          <button onClick={() => setDetailVisible(true)}>view</button>
+          <button id='view-button' onClick={() => setDetailVisible(true)}>view</button>
         </div>
         <div style={showWhenVisible} className='detailBlog'>
           <p> title : {blog.title} </p>
           <p> url : {blog.url} </p>
-          <p> likes : {blog.likes} <button className="like-button" onClick={() => addLike()}>like</button></p>
+          <p> likes : {blog.likes} <button id="like-button" onClick={() => addLike()}>like</button></p>
           <p> author : {blog.author}</p>
           <p> <button onClick={() => setDetailVisible(false)}>hide</button></p>
           {user && blog.user && user.id === blog.user.id && (
-            <p> <button onClick={handleDelete}>Delete</button> </p>
+            <p> <button id="delete-button" onClick={handleDelete}>Delete</button> </p>
           )}
         </div>
       </div>
@@ -142,7 +142,7 @@ const BlogForm = ({ user, handleNewBlog }) => {
               onChange={({ target }) => setUrl(target.value)}
             />
           </label>
-          <button type="submit">create</button>
+          <button id='create-button' type="submit">create</button>
         </form>
       </Togglable>
 
