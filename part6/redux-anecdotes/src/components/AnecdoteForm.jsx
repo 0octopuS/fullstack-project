@@ -1,17 +1,19 @@
 import { useDispatch } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
+import { setTimedNotification } from '../reducers/notificationReducer';
 
 // 6.7 new Component AnecdoteForm
 const AnecdoteForm = () => {
     const dispatch = useDispatch()
 
-
     // 6.4 adding new anecdotes
-    const add = (event) => {
+    // 6.15 Modify the creation of new anecdotes, so that the anecdotes are stored in the backend.
+    const add = async (event) => {
         event.preventDefault()
         const content = event.target.anecdote.value
         event.target.anecdote.value = ''
         dispatch(createAnecdote(content))
+        dispatch(setTimedNotification(`You add anecdote “${content}”.`), 5);
     }
 
 
