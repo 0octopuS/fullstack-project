@@ -1,0 +1,11 @@
+POST http://localhost:3003/api/blogs/ HTTP/1.1
+User-Agent: vscode-restclient
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhhc2hlcnkiLCJpZCI6IjY1OTMyZGEzNTNjZmRhZTVmY2RhNzAwNiIsImlhdCI6MTcwNDE0NTc0NH0.2rfaGHvxkpwaJe3eB5C1GgPw7F3lLfGz_uYUiu-sIk
+content-type: application/json
+
+{
+    "title": "hellasss1", 
+    "author": "Arto Hellas",
+    "url": "http://aabb.com",
+    "likes": 34 
+}

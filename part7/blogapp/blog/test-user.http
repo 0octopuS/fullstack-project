@@ -1,0 +1,8 @@
+POST http://localhost:3003/api/login HTTP/1.1
+User-Agent: vscode-restclient
+content-type: application/json
+
+{
+    "username": "hashery", 
+    "password": "onetwo"
+}
